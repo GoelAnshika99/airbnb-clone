@@ -1,0 +1,25 @@
+const express = require('express');
+const cors = require('cors');
+const dotenv = require('dotenv');
+const bodyParser = require('body-parser');
+const authRoutes = require('./routes/authRoutes');
+const profileRoutes = require('./routes/profileRoutes');
+const authMiddleware = require('./middleware/authMiddleware');
+const favoritesRoutes = require('./routes/favoritesRoutes');
+const propertyRoutes = require('./routes/propertyRoutes');
+const bookingRoutes = require('./routes/bookingRoutes');
+dotenv.config();
+console.log("Loaded JWT_SECRET:", process.env.JWT_SECRET);
+const app = express();
+app.use(cors());
+app.use(bodyParser.json());
+app.use('/api/auth', authRoutes);
+app.use('/api/profile', authMiddleware, profileRoutes);
+app.use('/api/properties', propertyRoutes);
+console.log("Found propertyRoutes");
+app.use('/api/favorites', favoritesRoutes);
+app.use('/api/bookings', bookingRoutes);
+const PORT = process.env.PORT || 5000;
+app.listen(PORT, () => {
+  console.log(`Server running on port ${PORT}`);
+});
