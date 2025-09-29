@@ -2,7 +2,7 @@ const mysql = require('mysql2/promise');
 const db = mysql.createPool({
   host: 'localhost',
   user: 'root',
-  password: 'Aradhya@18042024',
+  password: 'your_password',
   database: 'booking_system_db',
   waitForConnections: true,
   connectionLimit: 10,
